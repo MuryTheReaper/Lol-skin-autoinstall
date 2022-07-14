@@ -11,11 +11,18 @@ set SkinFolder="D:\Skin preview"
 set WinRarFolder="C:\Program Files\WinRAR"
 set DownSite="http://s4.modskinlolvn.com/MODSKIN_%Version%.zip"
 
-curl %DownSite% --output "%DownFolder%\MODSKIN.rar"
+%DownFolder:~1,2%
+curl %DownSite% --output %DownFolder%\MODSKIN.rar
+cd %DownFolder%
+mkdir Temp
 cd %WinRarFolder%
-winrar e -y "%DownFolder%\MODSKIN.rar" %SkinFolder%
-del "%DownFolder%\MODSKIN.rar"
-%SkinFolder:~0,2%
+winrar e -y %DownFolder%\MODSKIN.rar %DownFolder%\Temp
+del %DownFolder%\MODSKIN.rar
+xcopy %DownFolder%\Temp\ %SkinFolder% /y
+del %DownFolder%\Temp /q
+rmdir %DownFolder%\Temp /q
+%SkinFolder:~1,2%
+rmdir %SkinFolder%\Temp /q
 cd %SkinFolder%
 "LOLPRO %Version%.exe"
 
