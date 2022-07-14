@@ -6,23 +6,18 @@ del file.txt
 cls
 
 set /p Version="Latest version: %VAR:~64,7% ->"
-set DownFolder="C:\Users\usr\Downloads"
+set DownFolder="C:\Users\murya\Downloads"
 set SkinFolder="D:\Skin preview"
-set WinRarFolder="C:\Program Files\WinRAR"
+set ZipFolder="C:\Program Files\7-Zip"
 set DownSite="http://s4.modskinlolvn.com/MODSKIN_%Version%.zip"
+
 
 %DownFolder:~1,2%
 curl %DownSite% --output %DownFolder%\MODSKIN.rar
-cd %DownFolder%
-mkdir Temp
-cd %WinRarFolder%
-winrar e -y %DownFolder%\MODSKIN.rar %DownFolder%\Temp
+cd %ZipFolder%
+7z x -y %DownFolder%\MODSKIN.rar -o%SkinFolder%
 del %DownFolder%\MODSKIN.rar
-xcopy %DownFolder%\Temp\ %SkinFolder% /y
-del %DownFolder%\Temp /q
-rmdir %DownFolder%\Temp /q
 %SkinFolder:~1,2%
-rmdir %SkinFolder%\Temp /q
 cd %SkinFolder%
 "LOLPRO %Version%.exe"
 
